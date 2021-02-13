@@ -12,6 +12,10 @@ contract Trevorium {
     totalSupply = _initialSupply;
     name = _name;
     symbol = _symbol;
-
   }
+  
+  function transfer(address _to, uint256 _value) public returns (bool success) {
+  }
+    // throw exception if account doesn't have enough
+
 }

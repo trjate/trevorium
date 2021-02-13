@@ -15,7 +15,6 @@ contract('Trevorium', function(accounts) {
 	});
 
 
-
 	it('sets total supply on deploment', function() {
 		return Trevorium.deployed().then(function(instance) {
 			tokenInstance = instance;
@@ -31,6 +30,17 @@ contract('Trevorium', function(accounts) {
 			return tokenInstance.balanceOf(accounts[0]);
 		}).then(function(adminBalance) { 
 			assert.equal(adminBalance.toNumber(), 1000000, 'it allocates the initial supply to the admin account');
+		});
+	});
+	
+	it('transfers token ownership', function() {
+		return Trevorium.deployed().then(function(instance) {
+			tokenInstance = instance;
+			//return tokenInstance.transfer(msg.sender, 
+			// test require statement by first transfering amount larger than senders balance
+			return tokenInstance.transfer.call(accounts[1], 1000000000);
+		}).then(assert.fail).catch(function(error) { 
+			assert(error.message.indexOf('revert') >= 0, 'error message must contain revert');
 		});
 	});
 
